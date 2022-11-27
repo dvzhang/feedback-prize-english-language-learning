@@ -1,8 +1,6 @@
 import os
 from requests import get
-import torch
 import argparse
-import numpy as np
 import requests
 import random
 from time import sleep
@@ -53,7 +51,6 @@ def scrapeOnePage(url):
     if nextPages:
         nextPage = nextPages[0]
     print(ans)
-    sleep(random.random()*30)
     return ans, nextPage
 
 
@@ -64,7 +61,7 @@ def readUrl():
     for i in range(len(ans)):
         ans[i] = int(ans[i].split('/')[3])
     ans = list(set(ans))
-    print(ans[0:5])
+    print(len(list(set(ans))))
     return list(set(ans))
 
 
@@ -73,6 +70,7 @@ def scrape(url):
     ans, nextPage = scrapeOnePage(url)
     if nextPage != "":
         ans += scrape(nextPage)
+    sleep(random.random()*30)
     return ans
 
 
@@ -89,7 +87,7 @@ def main():
     #                     type=str, help="which glue task is training")
     parser.add_argument("--scrape", required=False, action='store_true',
                         help="This will scrape the data but return only 5 entries of each dataset.")
-    parser.add_argument("--static", type=str, default="./data", required=False,
+    parser.add_argument("--static", type=str, default="", required=False,
                         help="This will return the static dataset scraped from the web and stored in database or CSV ﬁle")
     args = parser.parse_args()
 
@@ -98,15 +96,32 @@ def main():
     print('args.static \t {}'.format(args.static))
     print('*'*60)
 
+    if args.scrape:
+        ans,nextPage = scrapeOnePage(url = 'https://lang-8.com/1/notebook')
+        for i in range(len(ans)):
+            print("{}\t{}".format(i+1, ans[i]))
     
-    TobeScrapedList = ['https://lang-8.com/{}/notebook'.format(i) for i in readUrl()]
-    TobeAdded = []
-    for TobeScraped in TobeScrapedList:
-        ans = scrape(url = TobeScraped)
-        TobeAdded += ans
-        if len(TobeAdded) > 30:
-            save(TobeAdded)
-            TobeAdded = []
+    elif args.static != "":
+        with open(args.static, "r") as f:
+            articles = f.readlines()
+        for line in articles[:50]:
+            print(line.strip())
+        print('*'*60)
+        a = input("Do you want to see all the data? The file is very large! (y/n)")
+        if a == 'y':
+            for line in articles[50:]:
+                print(line.strip())
+
+    else:
+        TobeScrapedList = ['https://lang-8.com/{}/notebook'.format(i) for i in readUrl()]
+        print(len(TobeScrapedList))
+        TobeAdded = []
+        for TobeScraped in TobeScrapedList:
+            ans = scrape(url = TobeScraped)
+            TobeAdded += ans
+            if len(TobeAdded) > 30:
+                save(TobeAdded)
+                TobeAdded = []
 
     
 if __name__ == "__main__":

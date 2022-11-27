@@ -19,7 +19,7 @@ However, the pretrain language model, Bert , or other models based on the Transf
 I want to use Scrapy to crawl [the website Lang-8](https://lang-8.com/1) , which is a second-language learners’ website and has lots of second-language users’ blogs. Using these to continue pretrain my pretrain language will make it more compatible with our task.
 ### 0.5.	The third can be an API, scraped, or a database
 We can find some [similar competition on Kaggle](https://www.kaggle.com/competitions/feedback-prize-2021)   . Both of them release their dataset in the past. They can also be the continue pretrain data. 
-
+![diagram](pic/WechatIMG553.png)
 
 # 1. Setup you env
 ```shell
@@ -34,17 +34,26 @@ mkdir -p input/commonlitreadabilityprize
 
 # 2. Run the code
 ### 2.1. scraper.py --scrape
-
+```shell
+python scraper.py --scrape
+```
 - This will scrape the data but return only 5 entries of each dataset.
+![pic](pic/WechatIMG555.png)
 
 ### 2.2. scraper.py --static <path_to_dataset>
-
+```shell
+python scraper.py --static ./data/static/lang8.csv
+```
 - This will return the static dataset scraped from the web and stored in database or CSV ﬁle
+![pic](pic/WechatIMG554.png)
 
 ### 2.3. scraper.py
-
+```shell
+scraper.py 
+```
 - Return the complete scraped datasets.
 - Kindly remind: it is very very slow, since this website will block crawler's IP, and I did not use IP pool. So I sleep about half minute after I crawl every page. If you must run it, use tmux to keep it running.
+![pic](pic/WechatIMG556.png)
 
 # 3. Download Data From Api
 ## 3.1 Download this competition's data from Kaggle API

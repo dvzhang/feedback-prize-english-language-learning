@@ -68,9 +68,9 @@ def readUrl():
 
 def scrape(url):
     ans, nextPage = scrapeOnePage(url)
+    sleep(random.random()*30)
     if nextPage != "":
         ans += scrape(nextPage)
-    sleep(random.random()*30)
     return ans
 
 

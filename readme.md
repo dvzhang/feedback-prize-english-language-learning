@@ -110,17 +110,17 @@ scraper.py
 
 # 3. Further Pretrain
 ## 3.1 Data preperation
-```
+```shell
 python continuePretrainDataPre.py
 ```
 ## 3.2 Train
-```
+```shell
 python continuePretrain.py
 ```
 
 
 # 4. Use the pretrained model in our competition dataset
-```
+```shell
 python pretrainFtFeedback2.py
 ```
 

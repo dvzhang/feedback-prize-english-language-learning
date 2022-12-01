@@ -28,6 +28,10 @@ conda activate kaggle
 
 pip install kaggle
 pip install lxml
+pip install IPython
+pip install matplotlib 
+pip install scikit-learn
+pip install iterative-stratification==0.1.7
 
 mkdir -p input/commonlitreadabilityprize
 ```

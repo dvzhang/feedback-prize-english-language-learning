@@ -67,6 +67,8 @@ Secondly, you can create New Api, getting a kaggle.json file
 Thirdly, copy this file to your home/.kaggle
 For example, I copy it to my ~/.kaggle, since I use Ubuntu
 
+the static dataset is stored in ./input/
+
 ### 2.1.2 How to download data from Api
 **Do not forget join in feedback-prize-english-language-learning, feedback-prize-2021 competition first!**
 
@@ -87,6 +89,8 @@ unzip feedback-prize-2021.zip
 ```
 
 ## 2.2 Data scraped from Lang-8 website
+the static dataset is stored in ./data/static
+
 ### 2.2.1 scraper.py --scrape
 ```shell
 python scraper.py --scrape

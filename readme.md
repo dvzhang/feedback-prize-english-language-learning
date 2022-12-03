@@ -27,6 +27,7 @@ The Transformer models are pre-trained on the general domain corpus. But for our
 What is more, this competition give me a very small train set, if I use it finetune my bert model directly, It must be over fit.
 
 Therefore the idea is, we can further pre-train the transformer with masked language model and next sentence prediction tasks on the domain-specific data. 
+
 ![picture](pic/WechatIMG561.png)
 
 As a result, we need some domain specific data.
@@ -102,7 +103,7 @@ python scraper.py --static ./data/static/lang8.csv
 
 ### 2.3. scraper.py
 ```shell
-scraper.py 
+python scraper.py 
 ```
 - Return the complete scraped datasets.
 - Kindly remind: it is very very slow, since this website will block crawler's IP, and I did not use IP pool. So I sleep about half minute after I crawl every page. If you must run it, use tmux to keep it running.
@@ -110,10 +111,13 @@ scraper.py
 
 # 3. Further Pretrain
 ## 3.1 Data preperation
+We should preprocess our data to make it available for further pretrain.
 ```shell
 python continuePretrainDataPre.py
 ```
+and we will get ./input/mlm_data.csv
 ## 3.2 Train
+Use the preprocessed data to further pretrain our model.
 ```shell
 python continuePretrain.py
 ```
@@ -127,5 +131,7 @@ python pretrainFtFeedback2.py
 # 5. Results
 Using this evaluation metric:
 ![picture](pic/WechatIMG563.png)
-My score is 0.47741172645010604
+My score is 0.477671232111189
+
 The result detail can be found in submission.csv
+![picture](pic/WechatIMG569.png)
